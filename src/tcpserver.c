@@ -20,7 +20,7 @@ void received_sigchld_on_tcpserver(int sig) {
 	printf("wait pid=%d status=%d\n",pid,status);
 }
 
-void listen_sigchld() {
+static void listen_sigchld() {
 	struct sigaction eventSigChld;
 	//Create the sigaction structure to handle SIGCHLD signal
 	sigemptyset(&eventSigChld.sa_mask);

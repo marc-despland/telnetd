@@ -77,7 +77,7 @@ void restore_input_opt(Child * child, int input) {
 }
 
 
-void listen_sigchld() {
+static void listen_sigchld() {
 	struct sigaction eventSigChld;
 	//Create the sigaction structure to handle SIGCHLD signal
 	sigemptyset(&eventSigChld.sa_mask);
