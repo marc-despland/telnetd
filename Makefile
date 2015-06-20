@@ -1,9 +1,8 @@
 SHELL = /bin/sh
 CC    = gcc
- 
-FLAGS        = -Iinclude
-CFLAGS       = -Wall -lutil
- 
+  
+CFLAGS       = -Wall -Iinclude 
+LDLIBS		 = -lutil
 TARGET  = telnetd
 SOURCES = $(shell echo src/*.c)
 HEADERS = $(shell echo include/*.h)
@@ -13,7 +12,7 @@ DEBUGFLAGS = -g
 all: $(TARGET)
  
 $(TARGET): $(OBJECTS) $(HEADERS)
-	$(CC) $(FLAGS) $(CFLAGS) $(DEBUGFLAGS) -o $(TARGET) $(OBJECTS)
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(LDLIBS) -o $(TARGET) $(OBJECTS)
  
 clean:
 	-rm -f $(OBJECTS)
@@ -25,9 +24,9 @@ distclean: clean
  
 .SECONDEXPANSION:
  
-$(foreach OBJ,$(OBJECTS),$(eval $(OBJ)_DEPS = $(shell $(CC) $(FLAGS) -MM $(OBJ:.o=.c) | sed s/.*://)))
+$(foreach OBJ,$(OBJECTS),$(eval $(OBJ)_DEPS = $(shell $(CC) $(CFLAGS) -MM $(OBJ:.o=.c) | sed s/.*://)))
 %.o: %.c $$($$@_DEPS)
-	$(CC) $(FLAGS) $(CFLAGS) $(DEBUGFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) -c -o $@ $<
   
  
 .PHONY : all install uninstall clean distclean

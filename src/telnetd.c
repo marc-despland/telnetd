@@ -8,6 +8,14 @@
 #include "termtty.h"
 #include "tcpserver.h"
 
+#define MDE_TELNETD_VERSION "1.1.0"
+
+void version(char * cmd) {
+	printf("Telnetd version %s\n",MDE_TELNETD_VERSION);
+	printf("https://github.com/marc-despland/samples\n\n");
+}
+
+
 int handler(int clientfd, struct sockaddr_in client, socklen_t clientsize) {
 	int go=1;
 	int n;
@@ -23,8 +31,18 @@ int handler(int clientfd, struct sockaddr_in client, socklen_t clientsize) {
 	return 1;
 }
 
-int main() {
-
-	listen_request(6666,12,&handler);
-    return 1;
+int main(int argc, char **argv) {
+	unsigned int port=0;
+	unsigned int pool=12;
+	Option options[]={
+			{'n',"poolsize","The number of simultaneous clients that can connect", TRUE,FALSE,FALSE,&pool, INT},
+			{'p',"port","The port to listen to", TRUE,TRUE,FALSE,&port, INT}
+	};
+	int result= parse_options(argc, argv, options, 2, version);
+	if (result<0) {
+		return 0;
+	} else {
+		listen_request(port,pool,&handler);
+		return 1;
+	}
 }
