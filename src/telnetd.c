@@ -7,6 +7,7 @@
 #include <sys/ioctl.h>
 #include "termtty.h"
 #include "tcpserver.h"
+#include "options.h"
 
 #define MDE_TELNETD_VERSION "1.1.0"
 
@@ -17,9 +18,6 @@ void version(char * cmd) {
 
 
 int handler(int clientfd, struct sockaddr_in client, socklen_t clientsize) {
-	int go=1;
-	int n;
-	char buffer[100];
 	char address[INET6_ADDRSTRLEN];
 
 
