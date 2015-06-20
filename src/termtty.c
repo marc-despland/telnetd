@@ -55,7 +55,7 @@ void resizeTTY(int sig) {
 		ioctl(child->fd,TIOCSWINSZ,&termsize);
 		child=child->next;
 	}
-	printf("Change windows size to %dx%d\n",termsize.w_col, termsize.w_row);
+	printf("Change windows size to %dx%d\n",termsize.ws_col, termsize.ws_row);
 }
 
 
