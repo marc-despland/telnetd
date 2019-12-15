@@ -12,7 +12,7 @@ DEBUGFLAGS = -g
 all: $(TARGET)
  
 $(TARGET): $(OBJECTS) $(HEADERS)
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(LDLIBS) -o $(TARGET) $(OBJECTS)
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) -o $(TARGET) $(OBJECTS) $(LDLIBS)
  
 clean:
 	-rm -f $(OBJECTS)
